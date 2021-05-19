@@ -18,4 +18,7 @@ class Task(models.Model):
     completion_date = models.DateTimeField(blank=True, null=True)#większość pól z wyjątkiem charfield i textfield wymagają blank i null = True
     user = models.ForeignKey(User, on_delete=models.CASCADE) #on_delete=models.CASCADE = wpis zniknie, jeśli usuniemy usera
 
+    def __str__(self):
+        return self.title
+
 
