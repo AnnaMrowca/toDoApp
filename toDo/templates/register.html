@@ -2,6 +2,7 @@
 
 <form action="{% url 'register' %}" method="POST">
     {{form}}
+    {{error}}
     <button type="submit">Register</button>
 
     {% csrf_token %}
