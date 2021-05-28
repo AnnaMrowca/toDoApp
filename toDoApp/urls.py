@@ -20,5 +20,7 @@ from toDo import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register', views.register, name="register"),
-    path('log', views.log, name="log")
+    path('log', views.log, name="log"),
+    path('', views.home, name="home"),
+
 ]

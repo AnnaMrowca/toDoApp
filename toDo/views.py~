@@ -19,7 +19,7 @@ def register(request):
             else: #ten esle wykonuje się, kiedy dojdzie do skutku try = czyli nie wystąpi tam błąd
                 user.save()
                 login(request,user)
-                return redirect('home')
+                return redirect('register')
         else:
             error = "Your passwords do not match"
             return render(request, 'register.html', {'form': UserCreationForm(), 'error': error})
@@ -34,7 +34,7 @@ def log(request):
     # kiedy dane są poprawne, jeśli są niepoprawne to zwraca None.
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('log')
 
         else:
             log_error = "User name or password is not valid. Try again."

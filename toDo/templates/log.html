@@ -1,1 +1,11 @@
 <h1>Log in </h1>
+{{log_error}}
+
+<form action="{% url 'log' %}" method="POST">
+
+    {{form}}
+
+    <button type="submit">Submit</button>
+
+    {% csrf_token %}
+</form>
