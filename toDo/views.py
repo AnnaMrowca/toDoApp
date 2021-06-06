@@ -2,7 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from .models import Task
+from django.contrib.auth.decorators import login_required
+
 
 
 def register(request):
@@ -42,6 +45,28 @@ def log(request):
 
 def home(request):
     return render(request, 'home.html')
+
+
+# def log_out(request):
+#     if request.method == "POST":
+#         logout(request)
+#         return redirect('home')
+
+# w log in musimy przekazać i request i usera, ponieważ aplikacja musi widzieć, kogo loguje.
+# w funkcji log_out nie musimy tego robić, ponieważ system już wie, kto jest zalogowany
+
+@login_required
+def log_out(request):
+    logout(request)
+    return redirect('home')
+
+@login_required
+def tasks(request):
+    tasks = Task.objects.filter(user=request.user) #request.user to jest ten user, aktualnie zalogowany
+    return render(request, 'tasks.html', {"tasks": tasks})
+
+
+
 
 
 
