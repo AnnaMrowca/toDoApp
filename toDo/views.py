@@ -5,6 +5,7 @@ from django.db import IntegrityError
 from django.contrib.auth import authenticate, login, logout
 from .models import Task
 from django.contrib.auth.decorators import login_required
+from .forms import TaskForm
 
 
 
@@ -66,7 +67,12 @@ def tasks(request):
     return render(request, 'tasks.html', {"tasks": tasks})
 
 
-
+@login_required
+def create(request):
+    if request.method == 'GET':
+        return render(request, 'create.html', {'form': TaskForm()})
+    else:
+        pass
 
 
 
