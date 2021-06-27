@@ -72,7 +72,18 @@ def create(request):
     if request.method == 'GET':
         return render(request, 'create.html', {'form': TaskForm()})
     else:
-        pass
+        form = TaskForm(request.POST) #Budujemy instancję Taska i wypełniamy ją danymi z requesta (request.POST)
+        if form.is_valid():
+            task = form.save(commit=False) #zwraca mi instancję taska, a commit=false mówi, że instancja nie jest
+            # do bazy danych niektórych rzeczy
+            task.user = request.user
+            task.save()
+            return redirect('tasks')
+        else:
+            error = 'Something went wrong. Try again'
+            return render(request, 'create.html', { 'error': error, 'form': TaskForm()})
+
+
 
 
 

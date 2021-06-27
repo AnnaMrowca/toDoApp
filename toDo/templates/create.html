@@ -1,6 +1,14 @@
 <h1> take a form </h1>
 
-<form>
+{{error}}
+
+<form action="{% url 'create' %}" method="POST">
+
+
     {{form}}
+
+    <button type="submit">Create</button>
+
+    {% csrf_token %}
 
 </form>
