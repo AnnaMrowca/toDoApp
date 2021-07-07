@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
@@ -76,12 +76,22 @@ def create(request):
         if form.is_valid():
             task = form.save(commit=False) #zwraca mi instancję taska, a commit=false mówi, że instancja nie jest
             # do bazy danych niektórych rzeczy
-            task.user = request.user
+            task.user = request.user #musimy podać sera, kto tworzy zadanie
             task.save()
             return redirect('tasks')
         else:
             error = 'Something went wrong. Try again'
             return render(request, 'create.html', { 'error': error, 'form': TaskForm()})
+
+@login_required
+def edit(request, taskId):
+    task = get_object_or_404(Task, pk=taskId)
+    if request.method == "GET":
+        return render(request, 'edit.html', {'task': task, 'form': TaskForm(instance=task)})
+    else:
+        form = TaskForm(instance=task, data=request.POST)
+
+
 
 
 

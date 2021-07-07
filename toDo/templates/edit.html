@@ -1,0 +1,9 @@
+<form action="{% url 'edit' task.id %}" method="POST">
+
+    {{form}}
+
+     {% csrf_token %}
+
+    <button type="submit">Edit</button>
+
+</form>
