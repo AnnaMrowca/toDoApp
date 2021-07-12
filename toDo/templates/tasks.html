@@ -1,8 +1,9 @@
 <h1>Your tasks</h1>
 
-{% for task in tasks %}
 
-<h2>{{task.title}}</h2>
+{% for task in tasks %}
+<a href="{% url 'edit' task.id %}"><h2>{{task.title}}</h2></a>
+
 <h2>{{task.description}}</h2>
 <h2>{{task.creation_date}}</h2>
 

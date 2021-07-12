@@ -85,12 +85,33 @@ def create(request):
 
 @login_required
 def edit(request, taskId):
-    task = get_object_or_404(Task, pk=taskId)
+    task = get_object_or_404(Task, pk=taskId, user=request.user)
     if request.method == "GET":
         return render(request, 'edit.html', {'task': task, 'form': TaskForm(instance=task)})
     else:
         form = TaskForm(instance=task, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('tasks')
+        else:
+            error = 'Something went wrong. Try again'
+            return render(request, 'edit.html', {'task': task, 'form': TaskForm(instance=task), 'error': error})
+        #user nie jest potrzebny, ponieważ jest on już przypisany do istniejącego zadania i nie powinniśmy go nadpisywać
 
+
+@login_required
+def delete_task(request, taskId):
+    #pobrać taska
+    #delete taska
+    task = get_object_or_404(Task, pk=taskId, user=request.user)
+    task.delete()
+    return redirect('tasks')
+
+@login_required
+def complete_task(request,taskId):
+    task = get_object_or_404(Task, pk=taskId, user=request.user)
+    # task.completion =
+    pass
 
 
 
