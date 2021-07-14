@@ -1,10 +1,14 @@
-<h1>Your tasks</h1>
+{% if current %}
+<h2>Current</h2>
+{% endif %}
+<!-- dodać napiś ,że skończone, if -->
 
-
-{% for task in tasks %}
+{% for task in current %}
 <a href="{% url 'edit' task.id %}"><h2>{{task.title}}</h2></a>
 
 <h2>{{task.description}}</h2>
 <h2>{{task.creation_date}}</h2>
 
 {% endfor %}
+<!--Link z tytulem
+completion date-->

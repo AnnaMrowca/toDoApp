@@ -3,10 +3,11 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib.auth import authenticate, login, logout
-from .models import Task
 from django.contrib.auth.decorators import login_required
-from .forms import TaskForm
+from django.utils import timezone
 
+from .forms import TaskForm
+from .models import Task
 
 
 def register(request):
@@ -63,8 +64,10 @@ def log_out(request):
 
 @login_required
 def tasks(request):
-    tasks = Task.objects.filter(user=request.user) #request.user to jest ten user, aktualnie zalogowany
-    return render(request, 'tasks.html', {"tasks": tasks})
+    current = Task.objects.filter(user=request.user, completion_date__isnull=True).order_by('-creation_date') #request.user to jest ten user, aktualnie zalogowany
+    complete = Task.objects.filter(user=request.user, completion_date__isnull=False).order_by('-completion_date') #request.user to jest ten user, aktualnie zalogowany
+    return render\
+        (request, 'tasks.html', {"current": current, "complete": complete})
 
 
 @login_required
@@ -107,11 +110,17 @@ def delete_task(request, taskId):
     task.delete()
     return redirect('tasks')
 
+#pobranie z bazy
+#zrobienie complete date
+#task save
+#redirect 'tasks'
 @login_required
 def complete_task(request,taskId):
     task = get_object_or_404(Task, pk=taskId, user=request.user)
-    # task.completion =
-    pass
+    task.completion_date = timezone.now()
+    task.save()
+    return redirect('tasks')
+
 
 
 
