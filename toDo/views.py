@@ -66,8 +66,7 @@ def log_out(request):
 def tasks(request):
     current = Task.objects.filter(user=request.user, completion_date__isnull=True).order_by('-creation_date') #request.user to jest ten user, aktualnie zalogowany
     complete = Task.objects.filter(user=request.user, completion_date__isnull=False).order_by('-completion_date') #request.user to jest ten user, aktualnie zalogowany
-    return render\
-        (request, 'tasks.html', {"current": current, "complete": complete})
+    return render(request, 'tasks.html', {"current": current, "complete": complete})
 
 
 @login_required
