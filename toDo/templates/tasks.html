@@ -4,15 +4,13 @@
 <h1>You have no more tasks.</h1>
 {% endif %}
 
-<!-- dodać napiś ,że skończone, if -->
 
 {% for task in current %}
 <a href="{% url 'edit' task.id %}"><h2>{{task.title}}</h2></a>
-
 <h2>{{task.description}}</h2>
 <h2>{{task.creation_date|date:"d M Y, G:i"}}</h2>
-
 {% endfor %}
+
 
 {% if complete %}
 <h1>Completed</h1>
@@ -20,11 +18,9 @@
 <h1>You have no complete tasks</h1>
 {% endif %}
 
+
+
 {% for task in complete %}
 <a href="{% url 'edit' task.id %}"><h2>{{task.title}}</h2></a>
-
 <h2>{{task.completion_date|date:"d M Y, G:i"}}</h2>
-
 {% endfor %}
-<!--Link z tytulem
-completion date-->
