@@ -1,4 +1,8 @@
- {{error}}
+{% extends 'base.html' %}
+
+{% block content %}
+
+{{error}}
 
 <form action="{% url 'edit' task.id %}" method="POST">
 
@@ -9,6 +13,8 @@
     <button type="submit">Edit</button>
 
 </form>
+
+{% endblock content %}
 
  <a href="{% url 'delete_task' task.id %}">Delete</a>
  <a href="{% url 'complete_task' task.id %}">Complete</a>

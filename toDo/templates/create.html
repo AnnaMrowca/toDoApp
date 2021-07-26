@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
 <h1> take a form </h1>
 
 {{error}}
@@ -12,3 +16,5 @@
     {% csrf_token %}
 
 </form>
+
+{% endblock content %}

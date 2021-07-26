@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
 {% if current %}
 <h1>Current</h1>
 {% else %}
@@ -24,3 +28,5 @@
 <a href="{% url 'edit' task.id %}"><h2>{{task.title}}</h2></a>
 <h2>{{task.completion_date|date:"d M Y, G:i"}}</h2>
 {% endfor %}
+
+{% endblock content %}
